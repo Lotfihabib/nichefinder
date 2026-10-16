@@ -1,0 +1,25 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Etsy data stays local (public repo; Etsy terms restrict redistribution)
+data/
+inputs/captures/
+inputs/exports/
+reports/
+.cache/
+cache/
+*.sqlite
+*.sqlite3
+*.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Your product ideas stay private
+inputs/seeds.txt

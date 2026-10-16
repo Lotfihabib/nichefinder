@@ -1,0 +1,991 @@
+{
+ "count": 30,
+ "results": [
+  {
+   "listing_id": 900000,
+   "shop_id": 7000,
+   "title": "Synthetic listing 0",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 0,
+   "created_timestamp": 1700000000,
+   "original_creation_timestamp": 1700000000,
+   "price": {
+    "amount": 499,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 499,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7000,
+    "shop_name": "SynthShop7000",
+    "user_id": 57000,
+    "transaction_sold_count": 120,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900001,
+   "shop_id": 7001,
+   "title": "Synthetic listing 1",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 10,
+   "created_timestamp": 1700086400,
+   "original_creation_timestamp": 1700086400,
+   "price": {
+    "amount": 999,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 999,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7001,
+    "shop_name": "SynthShop7001",
+    "user_id": 57001,
+    "transaction_sold_count": 499,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900002,
+   "shop_id": 7002,
+   "title": "Synthetic listing 2",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 20,
+   "created_timestamp": 1700172800,
+   "original_creation_timestamp": 1700172800,
+   "price": {
+    "amount": 1199,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1199,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7002,
+    "shop_name": "SynthShop7002",
+    "user_id": 57002,
+    "transaction_sold_count": 500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900003,
+   "shop_id": 7003,
+   "title": "Synthetic listing 3",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 30,
+   "created_timestamp": 1700259200,
+   "original_creation_timestamp": 1700259200,
+   "price": {
+    "amount": 1200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7003,
+    "shop_name": "SynthShop7003",
+    "user_id": 57003,
+    "transaction_sold_count": 2500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900004,
+   "shop_id": 7004,
+   "title": "Synthetic listing 4",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 40,
+   "created_timestamp": 1700345600,
+   "original_creation_timestamp": 1700345600,
+   "price": {
+    "amount": 1500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7004,
+    "shop_name": "SynthShop7004",
+    "user_id": 57004,
+    "transaction_sold_count": 25000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900005,
+   "shop_id": 7005,
+   "title": "Synthetic listing 5",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 50,
+   "created_timestamp": 1700432000,
+   "original_creation_timestamp": 1700432000,
+   "price": {
+    "amount": 1800,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1800,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7005,
+    "shop_name": "SynthShop7005",
+    "user_id": 57005,
+    "transaction_sold_count": 80000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900006,
+   "shop_id": 7006,
+   "title": "Synthetic listing 6",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 60,
+   "created_timestamp": 1700518400,
+   "original_creation_timestamp": 1700518400,
+   "price": {
+    "amount": 2200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 2200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7006,
+    "shop_name": "SynthShop7006",
+    "user_id": 57006,
+    "transaction_sold_count": 120,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900007,
+   "shop_id": 7007,
+   "title": "Synthetic listing 7",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 70,
+   "created_timestamp": 1700604800,
+   "original_creation_timestamp": 1700604800,
+   "price": {
+    "amount": 850,
+    "divisor": 100,
+    "currency_code": "EUR"
+   },
+   "converted_price": null,
+   "shop": {
+    "shop_id": 7007,
+    "shop_name": "SynthShop7007",
+    "user_id": 57007,
+    "transaction_sold_count": 499,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900008,
+   "shop_id": 7008,
+   "title": "Synthetic listing 8",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 80,
+   "created_timestamp": 1700691200,
+   "original_creation_timestamp": 1700691200,
+   "price": {
+    "amount": 1350,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1350,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7008,
+    "shop_name": "SynthShop7008",
+    "user_id": 57008,
+    "transaction_sold_count": 500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900009,
+   "shop_id": 7009,
+   "title": "Synthetic listing 9",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 90,
+   "created_timestamp": 1700777600,
+   "original_creation_timestamp": 1700777600,
+   "price": {
+    "amount": 2500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 2500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7009,
+    "shop_name": "SynthShop7009",
+    "user_id": 57009,
+    "transaction_sold_count": 2500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900010,
+   "shop_id": 7010,
+   "title": "Synthetic listing 10",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 100,
+   "created_timestamp": 1700864000,
+   "original_creation_timestamp": 1700864000,
+   "price": {
+    "amount": 499,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 499,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7010,
+    "shop_name": "SynthShop7010",
+    "user_id": 57010,
+    "transaction_sold_count": 25000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900011,
+   "shop_id": 7011,
+   "title": "Synthetic listing 11",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 110,
+   "created_timestamp": 1700950400,
+   "original_creation_timestamp": 1700950400,
+   "price": {
+    "amount": 999,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 999,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7011,
+    "shop_name": "SynthShop7011",
+    "user_id": 57011,
+    "transaction_sold_count": 80000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900012,
+   "shop_id": 7012,
+   "title": "Synthetic listing 12",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 120,
+   "created_timestamp": 1701036800,
+   "original_creation_timestamp": 1701036800,
+   "price": {
+    "amount": 1199,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1199,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7012,
+    "shop_name": "SynthShop7012",
+    "user_id": 57012,
+    "transaction_sold_count": 120,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900013,
+   "shop_id": 7013,
+   "title": "Synthetic listing 13",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 130,
+   "created_timestamp": 1701123200,
+   "original_creation_timestamp": 1701123200,
+   "price": {
+    "amount": 1200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7013,
+    "shop_name": "SynthShop7013",
+    "user_id": 57013,
+    "transaction_sold_count": 499,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900014,
+   "shop_id": 7014,
+   "title": "Synthetic listing 14",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 140,
+   "created_timestamp": 1701209600,
+   "original_creation_timestamp": 1701209600,
+   "price": {
+    "amount": 1500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7014,
+    "shop_name": "SynthShop7014",
+    "user_id": 57014,
+    "transaction_sold_count": 500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900015,
+   "shop_id": 7015,
+   "title": "Synthetic listing 15",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 150,
+   "created_timestamp": 1701296000,
+   "original_creation_timestamp": 1701296000,
+   "price": {
+    "amount": 1800,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1800,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7015,
+    "shop_name": "SynthShop7015",
+    "user_id": 57015,
+    "transaction_sold_count": 2500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900016,
+   "shop_id": 7016,
+   "title": "Synthetic listing 16",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 160,
+   "created_timestamp": 1701382400,
+   "original_creation_timestamp": 1701382400,
+   "price": {
+    "amount": 2200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 2200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7016,
+    "shop_name": "SynthShop7016",
+    "user_id": 57016,
+    "transaction_sold_count": 25000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900017,
+   "shop_id": 7017,
+   "title": "Synthetic listing 17",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 170,
+   "created_timestamp": 1701468800,
+   "original_creation_timestamp": 1701468800,
+   "price": {
+    "amount": 850,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 850,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7017,
+    "shop_name": "SynthShop7017",
+    "user_id": 57017,
+    "transaction_sold_count": 80000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900018,
+   "shop_id": 7000,
+   "title": "Synthetic listing 18",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 180,
+   "created_timestamp": 1701555200,
+   "original_creation_timestamp": 1701555200,
+   "price": {
+    "amount": 1350,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1350,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7000,
+    "shop_name": "SynthShop7000",
+    "user_id": 57000,
+    "transaction_sold_count": 120,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900019,
+   "shop_id": 7001,
+   "title": "Synthetic listing 19",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 190,
+   "created_timestamp": 1701641600,
+   "original_creation_timestamp": 1701641600,
+   "price": {
+    "amount": 2500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 2500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7001,
+    "shop_name": "SynthShop7001",
+    "user_id": 57001,
+    "transaction_sold_count": 499,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900020,
+   "shop_id": 7002,
+   "title": "Synthetic listing 20",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 200,
+   "created_timestamp": 1701728000,
+   "original_creation_timestamp": 1701728000,
+   "price": {
+    "amount": 499,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 499,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7002,
+    "shop_name": "SynthShop7002",
+    "user_id": 57002,
+    "transaction_sold_count": 500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900021,
+   "shop_id": 7003,
+   "title": "Synthetic listing 21",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 210,
+   "created_timestamp": 1701814400,
+   "original_creation_timestamp": 1701814400,
+   "price": {
+    "amount": 999,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 999,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7003,
+    "shop_name": "SynthShop7003",
+    "user_id": 57003,
+    "transaction_sold_count": 2500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900022,
+   "shop_id": 7004,
+   "title": "Synthetic listing 22",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 220,
+   "created_timestamp": 1701900800,
+   "original_creation_timestamp": 1701900800,
+   "price": {
+    "amount": 1199,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1199,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7004,
+    "shop_name": "SynthShop7004",
+    "user_id": 57004,
+    "transaction_sold_count": 25000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900023,
+   "shop_id": 7005,
+   "title": "Synthetic listing 23",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 230,
+   "created_timestamp": 1701987200,
+   "original_creation_timestamp": 1701987200,
+   "price": {
+    "amount": 1200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7005,
+    "shop_name": "SynthShop7005",
+    "user_id": 57005,
+    "transaction_sold_count": 80000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900024,
+   "shop_id": 7006,
+   "title": "Synthetic listing 24",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 240,
+   "created_timestamp": 1702073600,
+   "original_creation_timestamp": 1702073600,
+   "price": {
+    "amount": 1500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7006,
+    "shop_name": "SynthShop7006",
+    "user_id": 57006,
+    "transaction_sold_count": 120,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900025,
+   "shop_id": 7007,
+   "title": "Synthetic listing 25",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 250,
+   "created_timestamp": 1702160000,
+   "original_creation_timestamp": 1702160000,
+   "price": {
+    "amount": 1800,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1800,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7007,
+    "shop_name": "SynthShop7007",
+    "user_id": 57007,
+    "transaction_sold_count": 499,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900026,
+   "shop_id": 7008,
+   "title": "Synthetic listing 26",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 260,
+   "created_timestamp": 1702246400,
+   "original_creation_timestamp": 1702246400,
+   "price": {
+    "amount": 2200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 2200,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7008,
+    "shop_name": "SynthShop7008",
+    "user_id": 57008,
+    "transaction_sold_count": 500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900027,
+   "shop_id": 7009,
+   "title": "Synthetic listing 27",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 270,
+   "created_timestamp": 1702332800,
+   "original_creation_timestamp": 1702332800,
+   "price": {
+    "amount": 850,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 850,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7009,
+    "shop_name": "SynthShop7009",
+    "user_id": 57009,
+    "transaction_sold_count": 2500,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900028,
+   "shop_id": 7010,
+   "title": "Synthetic listing 28",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 280,
+   "created_timestamp": 1702419200,
+   "original_creation_timestamp": 1702419200,
+   "price": {
+    "amount": 1350,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 1350,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7010,
+    "shop_name": "SynthShop7010",
+    "user_id": 57010,
+    "transaction_sold_count": 25000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  },
+  {
+   "listing_id": 900029,
+   "shop_id": 7011,
+   "title": "Synthetic listing 29",
+   "tags": [
+    "budget",
+    "spreadsheet"
+   ],
+   "listing_type": "download",
+   "num_favorers": 290,
+   "created_timestamp": 1702505600,
+   "original_creation_timestamp": 1702505600,
+   "price": {
+    "amount": 2500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "converted_price": {
+    "amount": 2500,
+    "divisor": 100,
+    "currency_code": "USD"
+   },
+   "shop": {
+    "shop_id": 7011,
+    "shop_name": "SynthShop7011",
+    "user_id": 57011,
+    "transaction_sold_count": 80000,
+    "review_count": 40,
+    "review_average": 4.7,
+    "create_date": 1600000000,
+    "listing_active_count": 30
+   }
+  }
+ ]
+}

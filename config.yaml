@@ -1,0 +1,49 @@
+# NicheFinder settings. Thresholds are yours to tune; everything else follows
+# Etsy's API terms (see docs/api-notes.md) — don't loosen those.
+
+budget:
+  requests_per_second: 5       # until Etsy approves more
+  requests_per_day: 5000       # rolling 24 h window, enforced locally
+  calls_per_phrase: 45
+  stop_when_remaining_today_below: 50   # x-remaining-today safety margin
+
+cache:
+  dir: .cache/etsy
+  ttl_hours:                   # API terms: listing content <= 6 h, other content <= 24 h
+    search: 6
+    listings: 6
+    reviews: 24
+
+retention:
+  evidence_days: 30            # src/purge.py deletes older data/evidence files
+
+collection:
+  search_limit: 100            # findAllListingsActive max
+  top_n: 20
+  currency: USD
+  review_window_days: 90
+  low_star_max: 3              # 1..3 stars count as complaints
+  review_page_size: 100
+
+thresholds:
+  q1:                          # proven demand
+    recent_reviews_min: 3      # reviews in the window that make a listing "selling"
+    demand_badges: [bestseller, in_carts, popular_now]
+    pass_min: 5                # >= 5 selling listings in top 20
+    borderline_min: 3          # 3-4
+  q2:                          # not monopolized
+    small_shop_max_sales: 500  # small = transaction_sold_count < 500
+    mega_shop_min_sales: 20000 # FAIL if every top-20 shop has >= this
+    top3_share_fail: 0.5       # FAIL if top 3 shops hold >= 50% of top 20
+  q5:                          # price ceiling
+    price_floor: 12.00
+    borderline_min_listings: 5 # listings >= floor that show recent demand
+    hard_fail_median: 5.00     # median <= this is FAIL even if the borderline count is met
+
+decision:
+  max_borderline_for_watchlist: 1
+  too_many_borderline: reject  # what 2+ BORDERLINE becomes (reject | watchlist)
+
+report:
+  shortlist_max: 5
+  quote_max_words: 15
