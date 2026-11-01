@@ -20,6 +20,7 @@ retention:
 collection:
   search_limit: 100            # findAllListingsActive max
   top_n: 20
+  require_capture: true       # no saved page 1 -> skip the Etsy API, decision needs_capture
   currency: USD
   review_window_days: 90
   low_star_max: 3              # 1..3 stars count as complaints

@@ -137,9 +137,31 @@ def test_only_allowed_endpoints(client, path):
 
 # ------------------------------------------------------------------ collector
 
-def test_collect_without_capture(client, no_inputs):
-    c = client()
+NO_REQ = {**CFG, "collection": {**CFG["collection"], "require_capture": False}}
+
+
+def test_no_capture_skips_api_by_default(client, no_inputs):
+    fake = FakeEtsy()
+    c = client(fake)
     ev = collect.collect_phrase(c, ROW, CFG)
+    assert fake.requests == [] and ev["calls_used"] == 0 and ev["listings"] == []
+    from src.score import score_phrase
+    r = score_phrase(ev, None, None, CFG)
+    assert r["decision"] == "needs_capture" and "inputs/captures/budget-spreadsheet-for-freelancers/" in r["action"]
+
+
+def test_q4_fail_rejects_even_without_capture(client, no_inputs):
+    from src.score import score_phrase
+    ev = collect.collect_phrase(client(), ROW, CFG)
+    j = {"q4": {"verdict": "FAIL", "product_class": "static", "recreation_verdict": "succeeds",
+                "recreation_prompt": "make me a coloring page"}}
+    r = score_phrase(ev, j, None, CFG)
+    assert r["decision"] == "reject" and r["killed_by"] == ["q4"]
+
+
+def test_collect_api_fallback_when_capture_not_required(client, no_inputs):
+    c = client()
+    ev = collect.collect_phrase(c, ROW, NO_REQ)
     ls = ev["listings"]
     assert ev["top20_source"] == "api" and len(ls) == 20
     assert ev["calls_used"] <= CFG["budget"]["calls_per_phrase"]
@@ -164,7 +186,7 @@ def test_collect_with_capture_excludes_ads(client, no_inputs):
     d = no_inputs / "captures" / "budget-spreadsheet-for-freelancers"
     d.mkdir(parents=True)
     shutil.copy(FIX / "capture_page1.html", d / "page1.html")
-    ev = collect.collect_phrase(client(), ROW, CFG)
+    ev = collect.collect_phrase(client(), ROW, CFG)       # capture present -> API used
     assert ev["top20_source"] == "page_capture"
     assert {a["listing_id"] for a in ev["ads"]} == {900029, 900028}
     ids = [l["listing_id"] for l in ev["listings"]]
@@ -186,7 +208,7 @@ def test_exports_matched_by_keyword(client, no_inputs):
     (no_inputs / "exports").mkdir(parents=True)
     (no_inputs / "exports" / "erank.csv").write_text(
         "Keyword,Avg Searches,Competition\nbudget spreadsheet for freelancers,1200,5000\nother,1,1\n")
-    ev = collect.collect_phrase(client(), ROW, CFG)
+    ev = collect.collect_phrase(client(), ROW, CFG)       # exports load even without a capture
     m = ev["exports"]["erank.csv:Avg Searches"]
     assert m["value"] == "1200" and m["source"] == "export:erank.csv"
 

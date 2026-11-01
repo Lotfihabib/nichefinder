@@ -16,7 +16,8 @@ Follow `CLAUDE.md` rules throughout. Use the python on PATH, run from the repo r
 ## Stage 1: collect (Python, not the LLM)
 1. Preconditions. If any fails, tell the user and stop:
    - `.env` has `ETSY_API_KEY`, `ETSY_SHARED_SECRET` and `ETSY_ANALYTICS_AUTHORISED=yes` (Etsy's written OK for analytics use; see docs/api-notes.md).
-   - Budget: phrases × 45 calls must fit within today's remaining 5,000-call window (`.cache/etsy/calls.log` holds the last 24 h). If it doesn't fit, ask which phrases to run first.
+   - Captures are required (`collection.require_capture: true`). Phrases without `inputs/captures/<slug>/` cost 0 calls and become `needs_capture`.
+   - Budget: captured phrases × 45 calls must fit within today's remaining 5,000-call window (`.cache/etsy/calls.log` holds the last 24 h). If it doesn't fit, ask which phrases to run first.
 2. Screenshot captures: for each `inputs/captures/<slug>/` that has images but no `.html` or `capture.json`, read the screenshots in page order and write `capture.json`:
    `{"captured_at": "<ISO or file date>", "items": [{"listing_id": 123, "is_ad": false, "badges": ["bestseller"|"popular_now"|"in_carts"], "in_carts": 0}]}`.
    Get listing IDs only from what's visible (e.g. URLs). If IDs aren't visible, tell the user that an HTML save is needed instead. Never guess IDs.
@@ -26,7 +27,7 @@ Follow `CLAUDE.md` rules throughout. Use the python on PATH, run from the repo r
 ## Stage 2: score
 1. Run `python -m src.score`. Numeric FAILs are final, so don't judge those phrases.
 1b. **Off-Etsy signals:** run `python -m src.signals`. It covers every phrase not already rejected and uses Agent-Reach on public routes only: YouTube, Reddit, Facebook, Twitter and web search. It never touches Etsy. Twitter's public route often returns nothing; that's recorded as UNKNOWN. Don't run `agent-reach` commands by hand for this project. If you must, the guard hook enforces `--backend public-web` and refuses Etsy, login, browser and Instagram.
-2. For every phrase with `decision: needs_judgment` in `data/scores.json`, launch `niche-judge` agents (up to ~5 slugs per agent, in parallel when there are many). Give each agent only the slugs.
+2. For every phrase with `decision: needs_judgment` **or `needs_capture`** in `data/scores.json`, launch `niche-judge` agents (up to ~10 slugs per agent, in parallel when there are many). Give each agent only the slugs. Uncaptured phrases get Q4-only judging, so clear AI-reproducible ideas are rejected before the user spends time saving pages for them. When a capture arrives later, delete that phrase's judgment file so it's judged again in full.
 3. Run `python -m src.score` again. If the scorer capped a judgment (check `questions.q3.problems`), mention it.
 
 ## Stage 3: red team

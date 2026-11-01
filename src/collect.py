@@ -64,14 +64,27 @@ def collect_phrase(client: EtsyClient, row: dict, cfg: dict) -> dict:
     phrase, slug, at = row["phrase"].strip(), slugify(row["phrase"]), now_iso()
     client.start_phrase()
     notes = []
+    cap = parse_capture.load(slug)
+
+    # Live test 2026-11-01: the API's keyword results (even sort_on=score) are
+    # days-old listings with no sales or reviews, so not page 1. Without your
+    # capture there's nothing worth spending calls on.
+    if not cap and c.get("require_capture", True):
+        return {
+            "phrase": phrase, "slug": slug, "seed": row.get("seed"), "buyer": row.get("buyer"),
+            "job": row.get("job"), "collected_at": at, "top20_source": None,
+            "capture_file": None, "capture_kind": None, "api_result_count": metric(None, "api", at),
+            "api_top20_ids": [], "api_vs_page1_overlap": None, "ads": [], "listings": [],
+            "exports": load_exports(phrase), "calls_used": 0,
+            "notes": ["no page capture: Etsy API skipped (collection.require_capture)"],
+        }
 
     # 1. API search (relevance order; NOT the buyer-facing page 1)
     search = client.get(SEARCH, {"keywords": phrase, "limit": c["search_limit"], "sort_on": "score",
                                  "currency": c["currency"]}, kind="search")
     api_ids = [r["listing_id"] for r in search.get("results", [])]
 
-    # 2. top-20 set: capture if present, else API order
-    cap = parse_capture.load(slug)
+    # 2. top-20 set: capture if present, else API order (only when require_capture is off)
     ads = []
     if cap:
         organic = [i for i in cap["items"] if not i["is_ad"]]

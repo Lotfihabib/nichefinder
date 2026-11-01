@@ -22,6 +22,9 @@ Purpose: take broad Etsy product seeds and return **which niches and products to
 - Agents: `phrase-expander`, `niche-judge`, `red-team` (fresh context, packets + evidence only).
 - Tests: `python -m pytest`. Fixtures in `tests/fixtures/` are synthetic.
 
+## Captures are required
+The API's keyword results aren't page 1. A live check found them all days old with no demand (docs/api-notes.md). So phrases without `inputs/captures/<slug>/` make no Etsy calls and become `needs_capture`. Only Q4 is judged for them, from the phrase and the off-Etsy signals.
+
 ## Decision rule
 Any FAIL → reject. UNKNOWN on Q1/Q2/Q5 → `needs_capture` (name the exact page to save). All PASS → shortlist. ≤1 BORDERLINE → watchlist. 2+ BORDERLINE → `decision.too_many_borderline` (default reject).
 

@@ -29,7 +29,9 @@ Notes from the spec:
 
 - `findAllListingsActive` defaults to newest-first by creation date. `sort_on=score` (relevance) only works with a search option such as `keywords`, and is always descending.
 - `keywords`: "Search term or phrase that must appear in all results."
-- **API result order is not the ranked page 1 a buyer sees.** Etsy's search page mixes in ads, personalisation and its own ranking. Without a page capture, Q1/Q2 carry `confidence=low`.
+- **API result order is not the ranked page 1 a buyer sees.** Etsy's search page mixes in ads, personalisation and its own ranking.
+- **Live check 2026-11-01** (`budget spreadsheet for irregular income`, 966 matches): `sort_on=score` and `sort_on=created` gave different orders with zero top-20 overlap. But even the `score` top 20 were 1–16 days old. 15 of 20 shops had 0 sales (max 68), every listing had 0 reviews in 90 days, and favourites were 0. The API sample says nothing about page-1 demand, so **page captures are required** (`collection.require_capture: true`). Uncaptured phrases make no calls and go to `needs_capture`.
+- **Array params:** send comma-joined (`listing_ids=1,2,3`). With repeated keys (the OpenAPI default), Etsy used only the last value.
 
 ## Fields used
 

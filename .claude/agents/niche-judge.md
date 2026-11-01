@@ -10,6 +10,9 @@ If `data/signals/<slug>.json` exists, read it too. It holds off-Etsy context fro
 
 The evidence file has `listings[]`, each with `listing_id`, `title`, `tags`, `listing_type`, `price_usd`, `low_star_reviews[]` (`rating`, `text`), `reviews_scanned` and `review_total`. Metric values are under `.value`. `null` means unknown.
 
+## Q4-only mode (no page capture yet)
+If the evidence file has `"listings": []` (no capture, so no Etsy data), **write only `q4`**. Omit `q3` and `product`. Judge the product a buyer of this phrase would be paying for, using the phrase, buyer, job and the signals file. Give FAIL only when the case is clear: the product type is static (coloring pages, wall art, basic printables), or the signals show free templates that fully do the job. Otherwise give BORDERLINE with `recreation_verdict: partial`, or PASS. Without Etsy listings, don't give PASS unless the product is plainly functional and the free results don't substitute for it. Q4 is re-judged once the capture exists.
+
 ## Q3 — Beatable: is there a concrete, fixable flaw?
 - **PASS:** at least one specific, fixable flaw backed by evidence, citing top-20 `listing_id`s. Evidence is either:
   - 1–3★ review quotes. Copy them **verbatim** from `low_star_reviews[].text`, **under 15 words** each (trim to the key clause). The scorer checks every quote against the evidence and every ID against the top 20, and downgrades you if one doesn't match.
