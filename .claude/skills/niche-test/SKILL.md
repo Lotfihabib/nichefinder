@@ -25,6 +25,7 @@ Follow `CLAUDE.md` rules throughout. Use the python on PATH, run from the repo r
 
 ## Stage 2: score
 1. Run `python -m src.score`. Numeric FAILs are final, so don't judge those phrases.
+1b. **Off-Etsy signals:** run `python -m src.signals`. It covers every phrase not already rejected and uses Agent-Reach on public routes only: YouTube, Reddit, Facebook, Twitter and web search. It never touches Etsy. Twitter's public route often returns nothing; that's recorded as UNKNOWN. Don't run `agent-reach` commands by hand for this project. If you must, the guard hook enforces `--backend public-web` and refuses Etsy, login, browser and Instagram.
 2. For every phrase with `decision: needs_judgment` in `data/scores.json`, launch `niche-judge` agents (up to ~5 slugs per agent, in parallel when there are many). Give each agent only the slugs.
 3. Run `python -m src.score` again. If the scorer capped a judgment (check `questions.q3.problems`), mention it.
 

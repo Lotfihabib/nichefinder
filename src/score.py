@@ -297,6 +297,7 @@ def redteam_packet(result: dict, judgment: dict) -> dict:
     return {
         "phrase": result["phrase"], "slug": result["slug"], "buyer": result.get("buyer"),
         "evidence_file": f"data/evidence/{result['slug']}.json",
+        "signals_file": f"data/signals/{result['slug']}.json",
         "verdicts": result["verdicts"],
         "numbers": {k: {kk: vv for kk, vv in v.items() if kk not in ("problems",)}
                     for k, v in result["questions"].items() if k in ("q1", "q2", "q5")},

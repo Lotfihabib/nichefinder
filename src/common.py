@@ -15,6 +15,7 @@ REPORTS = ROOT / "reports"
 EVIDENCE = DATA / "evidence"
 JUDGMENTS = DATA / "judgments"
 REDTEAM = DATA / "redteam"
+SIGNALS = DATA / "signals"
 
 SOURCES = {"api", "page_capture", "export"}
 
@@ -44,7 +45,7 @@ def metric(value: Any, source: str, at: str) -> dict:
 
     value=None means UNKNOWN. It is never treated as a pass.
     """
-    if source not in SOURCES and not source.startswith("export:"):
+    if source not in SOURCES and not source.startswith(("export:", "agent-reach:")):
         raise ValueError(f"unknown metric source {source!r}")
     return {"value": value, "source": source, "at": at}
 

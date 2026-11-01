@@ -8,6 +8,7 @@ Purpose: take broad Etsy product seeds and return **which niches and products to
 3. **No scraping of etsy.com and no bot-detection bypass.** No scrapers, headless crawlers, proxy rotation or CAPTCHA solvers, and don't fetch etsy.com pages. Live data comes only from the official Open API v3 (read-only, `src/etsy_client.py`) and the user's own files in `inputs/captures/` and `inputs/exports/`.
 4. **Etsy API Terms** (docs/api-notes.md): raw cache ≤ 6 h for listings/search and ≤ 24 h for reviews. Request minimum data. Run no live analytics until `ETSY_ANALYTICS_AUTHORISED=yes`, i.e. Etsy approved it in writing. Etsy data is never redistributed.
 5. **Field and endpoint names come from the official OpenAPI spec.** Re-check it before changing the client.
+6. **Agent-Reach (v1.6.1) is for off-Etsy signals only** (`src/signals.py`), on public routes. Never point it at Etsy. Never use its login, managed browser (CloakBrowser/OpenCLI), `add` or `--backend opencli`, and no Instagram (browser-only). Reddit, Twitter and Facebook always run `--backend public-web`. `.claude/hooks/guard_agent_reach.py` blocks violations. Signals are context for Q3/Q4 and the red team, never a pass on their own.
 
 ## Secrets and the public repo
 - Keys live only in `.env`, which is git-ignored. The shared secret is as sensitive as the key. `data/`, `inputs/captures/`, `inputs/exports/`, `inputs/seeds.txt`, `reports/` and `.cache/` are never committed.
