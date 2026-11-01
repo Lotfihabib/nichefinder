@@ -189,3 +189,19 @@ def test_exports_matched_by_keyword(client, no_inputs):
     ev = collect.collect_phrase(client(), ROW, CFG)
     m = ev["exports"]["erank.csv:Avg Searches"]
     assert m["value"] == "1200" and m["source"] == "export:erank.csv"
+
+
+def test_slugs_stay_short_and_unique():
+    from src.common import SLUG_MAX, slugify
+    a = slugify("an extremely long search phrase that keeps going well past the limit one")
+    b = slugify("an extremely long search phrase that keeps going well past the limit two")
+    assert len(a) <= SLUG_MAX and len(b) <= SLUG_MAX and a != b
+    assert slugify("Budget Spreadsheet, for Freelancers!") == "budget-spreadsheet-for-freelancers"
+
+
+def test_arrays_sent_comma_joined(client):
+    fake = FakeEtsy()
+    client(fake).get("/v3/application/listings/batch",
+                     {"listing_ids": [1, 2, 3], "includes": ["Shop"]}, "listings")
+    assert fake.requests[0][1]["listing_ids"] == "1,2,3"
+    assert fake.requests[0][1]["includes"] == "Shop"

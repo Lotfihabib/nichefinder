@@ -94,7 +94,7 @@ class EtsyClient:
 
     def _cache_key(self, path: str, params: dict) -> str:
         raw = path + "?" + json.dumps(params, sort_keys=True, default=str)
-        return hashlib.sha256(raw.encode()).hexdigest()
+        return hashlib.sha256(raw.encode()).hexdigest()[:32]   # short: Windows MAX_PATH
 
     def _cache_read(self, key: str, kind: str) -> dict | None:
         f = self.cache_dir / f"{key}.json"
@@ -140,11 +140,11 @@ class EtsyClient:
     def _fetch(self, path: str, params: dict, attempts: int = 4) -> dict:
         url = BASE + path
         delay = 1.0
-        comma_arrays = False
+        # Arrays go comma-joined. Live test 2026-11-01: with repeated keys
+        # (the OpenAPI default) Etsy kept only the last listing_ids value.
+        sent = {k: (",".join(map(str, v)) if isinstance(v, list) else v) for k, v in params.items()}
         for attempt in range(attempts):
             self._reserve_call()
-            sent = {k: (",".join(map(str, v)) if comma_arrays and isinstance(v, list) else v)
-                    for k, v in params.items()}
             status, headers, body = self.transport(url, sent, self._header)
             h = {k.lower(): v for k, v in (headers or {}).items()}
             if "x-remaining-today" in h:
@@ -159,9 +159,6 @@ class EtsyClient:
                     f"HTTP {status} from Etsy. Check that the x-api-key header is "
                     f"'keystring:shared_secret' (both in .env), then whether the app is "
                     f"still pending approval. Body: {str(body)[:300]}")
-            if status == 400 and not comma_arrays and any(isinstance(v, list) for v in params.values()):
-                comma_arrays = True        # spec default is repeated keys; try comma-joined once
-                continue
             if status == 429 or status >= 500:
                 retry_after = float(h.get("retry-after", delay))
                 self.sleep(max(retry_after, delay))
