@@ -47,3 +47,15 @@ decision:
 report:
   shortlist_max: 5
   quote_max_words: 15
+
+signals:                       # off-Etsy context via Agent-Reach, public routes only (never Etsy)
+  retention_days: 30
+  pause_seconds: 3             # between Agent-Reach calls
+  timeout_seconds: 120
+  snippet_words: 40
+  queries:                     # {phrase} is replaced; reddit/twitter/facebook always run --backend public-web
+    - {channel: youtube,  action: search, query: "{phrase}",               limit: 10, purpose: demand_and_tutorials}
+    - {channel: reddit,   action: search, query: "{phrase}",               limit: 10, purpose: buyer_questions}
+    - {channel: twitter,  action: search, query: "{phrase}",               limit: 10, purpose: buyer_questions}
+    - {channel: facebook, action: search, query: "{phrase}",               limit: 5,  purpose: buyer_questions}
+    - {channel: web,      action: search, query: "free {phrase} template", limit: 8,  purpose: free_alternatives}

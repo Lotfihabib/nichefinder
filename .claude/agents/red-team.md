@@ -9,6 +9,8 @@ Your job is to **break** a shortlisted Etsy niche. For each slug you are given, 
 - `data/redteam_packets/<slug>.json`: verdicts, numbers, and the claims made (flaws, recreation test, product)
 - `data/evidence/<slug>.json`: the collected data. Metric values are under `.value`. `null` = unknown.
 
+- `data/signals/<slug>.json`, if present: off-Etsy context from public YouTube, Reddit, Facebook and web searches. Don't open its URLs.
+
 Do **not** read `data/judgments/`, `data/scores.json` or anything else. You get no one's reasoning on purpose. Don't browse the web.
 
 ## Attacks (run every one and record each result)
@@ -16,7 +18,7 @@ Do **not** read `data/judgments/`, `data/scores.json` or anything else. You get 
 2. **viral:** Is Q1 carried by one or two listings? Compare `recent_reviews` across listings. Would Q1 still pass without the biggest one?
 3. **sister_shop:** Is a "small shop" (in `small_shop_selling_listing_ids`) really a second shop of a big seller? Look for matching or similar `shop_name`, the same `shop_user_id`, near-identical titles and tags, or a new shop with an implausibly fast start.
 4. **cosmetic_flaw:** Is the Q3 flaw cosmetic, or does it affect only one listing while the others already solve it? Check the titles and tags of the other top listings.
-5. **canva:** Does a free Canva template, a free Google Sheets/Excel template gallery item or a free AI prompt already defeat the Q4 pass? Judge from the product described. Be concrete.
+5. **canva:** Does a free Canva template, a free Google Sheets/Excel template gallery item or a free AI prompt already defeat the Q4 pass? Judge from the product described, and use the signals file's `free_alternatives` results and free templates shared on Reddit as evidence (cite URLs). Be concrete.
 
 ## Verdict
 A niche is **refuted** if any attack lands with evidence (cite listing IDs and numbers), not on speculation.

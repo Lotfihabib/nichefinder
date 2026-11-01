@@ -9,7 +9,7 @@ import json
 import sys
 from datetime import date
 
-from .common import DATA, EVIDENCE, JUDGMENTS, REPORTS, load_config
+from .common import DATA, EVIDENCE, JUDGMENTS, REPORTS, SIGNALS, load_config
 
 DISCLAIMER = ("The term 'Etsy' is a trademark of Etsy, Inc. This Application uses Etsy's API, "
               "but is not endorsed or certified by Etsy.")
@@ -54,6 +54,26 @@ def missing_data(r: dict, ev: dict) -> list[str]:
     return out
 
 
+def signals_summary(slug: str) -> dict:
+    s = _load(SIGNALS / f"{slug}.json")
+    return {k: (v or {}).get("value") for k, v in (s.get("summary") or {}).items()} if s else {}
+
+
+def signals_line(slug: str) -> str:
+    s = _load(SIGNALS / f"{slug}.json")
+    if not s:
+        return "**Off-Etsy signals:** not collected"
+    v = signals_summary(slug)
+    fmt = lambda x: "UNKNOWN" if x is None else x
+    free = next((b for b in s["queries"] if b["channel"] == "web"), {"items": []})["items"][:3]
+    return (f"**Off-Etsy signals** (context only, not a verdict; collected {s['collected_at']}): "
+            f"YouTube {fmt(v.get('youtube_videos'))} videos (max views {fmt(v.get('youtube_max_views'))}) · "
+            f"Reddit {fmt(v.get('reddit_threads'))} threads (max points {fmt(v.get('reddit_max_points'))}) · "
+            f"Facebook {fmt(v.get('facebook_results'))} · Twitter {fmt(v.get('twitter_results'))} · "
+            f"free-template web results {fmt(v.get('free_alternative_results'))}"
+            + "".join(f"\n  - free alternative: [{i['title']}]({i['url']})" for i in free))
+
+
 def shortlist_block(i: int, r: dict, ev: dict, j: dict) -> str:
     q = r["questions"]
     prod = j.get("product") or {}
@@ -76,6 +96,7 @@ def shortlist_block(i: int, r: dict, ev: dict, j: dict) -> str:
               "", f"**Core product (target ${prod.get('target_price_usd', '—')}):** {prod.get('spec') or '—'}",
               "", "**Variations:**"]
     lines += [f"{n}. {v}" for n, v in enumerate(prod.get("variations") or [], 1)] or ["—"]
+    lines += ["", signals_line(r["slug"])]
     md = missing_data(r, ev)
     lines += ["", "**Missing data:** " + ("; ".join(md) if md else "none"), ""]
     return "\n".join(lines)
@@ -149,7 +170,9 @@ def main(argv: list[str] | None = None) -> int:
               "q1_selling", "q1_unknown", "q2_top3_share", "q2_small_shop_selling", "q2_min_shop_sales",
               "q2_unknown_sales", "q3_evidenced_flaws", "q4_product_class", "q4_recreation",
               "q5_p25", "q5_median", "q5_p75", "q5_unknown_prices", "q5_selling_at_floor",
-              "top20_source", "confidence_q1_q2", "api_result_count", "calls_used", "collected_at"]
+              "top20_source", "confidence_q1_q2", "api_result_count", "calls_used", "collected_at",
+              "sig_youtube_videos", "sig_youtube_max_views", "sig_reddit_threads", "sig_reddit_max_points",
+              "sig_facebook_results", "sig_twitter_results", "sig_free_alternative_results"]
     with open(REPORTS / f"{today}-scores.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
@@ -174,6 +197,7 @@ def main(argv: list[str] | None = None) -> int:
                 "top20_source": r["top20_source"], "confidence_q1_q2": r["confidence_q1_q2"],
                 "api_result_count": (ev.get("api_result_count") or {}).get("value"),
                 "calls_used": ev.get("calls_used"), "collected_at": r["collected_at"],
+                **{f"sig_{k}": v for k, v in signals_summary(r["slug"]).items()},
             })
     print(f"wrote {md} and {today}-scores.csv")
     return 0

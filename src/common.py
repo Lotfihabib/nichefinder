@@ -15,6 +15,7 @@ REPORTS = ROOT / "reports"
 EVIDENCE = DATA / "evidence"
 JUDGMENTS = DATA / "judgments"
 REDTEAM = DATA / "redteam"
+SIGNALS = DATA / "signals"
 
 SOURCES = {"api", "page_capture", "export"}
 
@@ -28,8 +29,15 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
+SLUG_MAX = 50   # keeps data/ and inputs/captures/ paths under Windows' 260-char limit
+
+
 def slugify(phrase: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "-", phrase.lower()).strip("-")[:80]
+    slug = re.sub(r"[^a-z0-9]+", "-", phrase.lower()).strip("-")
+    if len(slug) <= SLUG_MAX:
+        return slug
+    import hashlib
+    return slug[: SLUG_MAX - 7].rstrip("-") + "-" + hashlib.sha1(slug.encode()).hexdigest()[:6]
 
 
 def metric(value: Any, source: str, at: str) -> dict:
@@ -37,7 +45,7 @@ def metric(value: Any, source: str, at: str) -> dict:
 
     value=None means UNKNOWN. It is never treated as a pass.
     """
-    if source not in SOURCES and not source.startswith("export:"):
+    if source not in SOURCES and not source.startswith(("export:", "agent-reach:")):
         raise ValueError(f"unknown metric source {source!r}")
     return {"value": value, "source": source, "at": at}
 

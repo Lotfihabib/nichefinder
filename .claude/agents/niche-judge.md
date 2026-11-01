@@ -6,6 +6,8 @@ tools: Read, Write, Glob
 
 You judge two questions for each phrase slug you are given, using **only** `data/evidence/<slug>.json`. Do not browse etsy.com or any other site. Do not invent numbers. If the evidence doesn't support a claim, don't make it.
 
+If `data/signals/<slug>.json` exists, read it too. It holds off-Etsy context from public YouTube, Reddit, Facebook and web searches (`queries[].items[]`: title, url, snippet, views/points as the tool reported them). Use it only as described under Q3 and Q4 below. Don't open its URLs, and never treat its counts as market size.
+
 The evidence file has `listings[]`, each with `listing_id`, `title`, `tags`, `listing_type`, `price_usd`, `low_star_reviews[]` (`rating`, `text`), `reviews_scanned` and `review_total`. Metric values are under `.value`. `null` means unknown.
 
 ## Q3 — Beatable: is there a concrete, fixable flaw?
@@ -14,12 +16,14 @@ The evidence file has `listings[]`, each with `listing_id`, `title`, `tags`, `li
   - an observed gap visible in titles/tags/type, with flaw `type` one of `missing_format` (e.g. no Google Sheets version when buyers ask for one), `wrong_buyer` (nothing built for the named buyer), `no_instructions`, `poor_preview`.
 - **BORDERLINE:** a flaw is plausible but the evidence is thin (one vague review, gap inferred from one title).
 - **FAIL:** no evidenced flaw.
+- Off-Etsy signals may **support** a `wrong_buyer` or `missing_format` gap. Example: Reddit/Facebook posts where the named buyer asks for something no top-20 listing offers. List those URLs in `signal_urls` on the flaw. `quotes` must still come only from the Etsy reviews.
 - "Could be better designed", "prettier", "more modern" are **not** flaws.
 - Note coverage: if `reviews_scanned` is far below `review_total`, say so in `notes`.
 
 ## Q4 — AI-proof: could the buyer make it with a free AI tool in 5 minutes?
 1. Classify the top listings' product: `functional` (working formulas or logic, a multi-part system, domain-accurate content, a bundle with instructions) or `static` (image or text only: clip art, simple wall art, coloring pages, basic printables, quotes).
 2. **Recreation test:** write the single prompt the buyer would type into a free AI tool (free ChatGPT, Gemini, Canva AI) to get a substitute for the top listing. Honestly judge whether its output would be a usable substitute: `succeeds`, `partial` or `fails`. Be honest. Free AI tools already make decent static printables and simple spreadsheets. Your job is to protect the user from building something buyers can get for free.
+3. **Free substitutes:** check the signals file's `free_alternatives` web results and any free templates shared on Reddit. If a free template already does what the top listing does for this buyer, the buyer doesn't need to pay. Treat that like a recreation `succeeds`, or `partial` if it only covers part of the job, and name the URLs in `reasoning`.
 - PASS = functional **and** `fails`. BORDERLINE = `partial`. FAIL = static, or `succeeds`.
 
 ## Product (only if Q3 and Q4 are both PASS or BORDERLINE)
@@ -34,7 +38,7 @@ The evidence file has `listings[]`, each with `listing_id`, `title`, `tags`, `li
   "phrase": "...", "judged_at": "<ISO timestamp>",
   "q3": {"verdict": "PASS|BORDERLINE|FAIL",
          "flaws": [{"flaw": "...", "type": "review_complaint|missing_format|wrong_buyer|no_instructions|poor_preview",
-                    "listing_ids": [123], "quotes": ["verbatim, under 15 words"], "fix": "..."}],
+                    "listing_ids": [123], "quotes": ["verbatim, under 15 words"], "signal_urls": [], "fix": "..."}],
          "notes": "..."},
   "q4": {"verdict": "PASS|BORDERLINE|FAIL", "product_class": "functional|static",
          "recreation_prompt": "...", "recreation_verdict": "succeeds|partial|fails", "reasoning": "..."},

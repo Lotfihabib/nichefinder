@@ -2,6 +2,7 @@
 
 - raw API cache entries past their TTL (6 h listings/search, 24 h reviews)
 - evidence, judgment and red-team files older than retention.evidence_days
+- off-Etsy signal files older than signals.retention_days
 
 Reports are kept: they hold derived numbers and short quotes, and are your decision record.
 
@@ -13,7 +14,7 @@ import json
 import sys
 import time
 
-from .common import EVIDENCE, JUDGMENTS, REDTEAM, ROOT, load_config
+from .common import EVIDENCE, JUDGMENTS, REDTEAM, ROOT, SIGNALS, load_config
 
 
 def main(argv=None) -> int:
@@ -33,7 +34,12 @@ def main(argv=None) -> int:
             if now - f.stat().st_mtime > limit:
                 f.unlink()
                 old += 1
-    print(f"purged {gone} expired cache entries and {old} evidence/judgment files")
+    sig_limit = cfg["signals"]["retention_days"] * 86400
+    for f in SIGNALS.glob("*.json"):
+        if now - f.stat().st_mtime > sig_limit:
+            f.unlink()
+            old += 1
+    print(f"purged {gone} expired cache entries and {old} evidence/judgment/signal files")
     return 0
 
 
