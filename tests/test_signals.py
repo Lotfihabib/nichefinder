@@ -73,3 +73,17 @@ def test_refused_queries_never_run(q):
 def test_etsy_host_detection():
     assert signals.is_etsy("https://www.etsy.com/listing/1") and signals.is_etsy("https://etsy.com/x")
     assert not signals.is_etsy("https://notetsy.example.com/x")
+
+
+def test_waits_out_backend_pause_then_retries(monkeypatch):
+    slept, calls = [], []
+    monkeypatch.setattr(signals.time, "sleep", lambda s: slept.append(s))
+    replies = iter([
+        json.dumps({"ok": False, "items": [], "error": {"code": "UPSTREAM_BROKEN", "retry_after_seconds": 100,
+                                                        "message": "exa is temporarily paused after UPSTREAM_BROKEN; retry later"}}),
+        json.dumps({"ok": True, "backend": "exa", "items": [{"title": "Free template", "url": "https://x.org/a", "text": "free"}]}),
+    ])
+    runner = lambda args, t: (calls.append(args), next(replies))[1]
+    q = {"channel": "web", "action": "search", "query": "free {phrase} template", "limit": 8}
+    b = signals.run_query(runner, q, "budget planner", CFG)
+    assert b["ok"] and b.get("retried") and len(calls) == 2 and slept == [105.0]

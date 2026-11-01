@@ -22,7 +22,11 @@ spec.loader.exec_module(guard)
     'agent-reach reddit search "budget sheet"',
     'agent-reach twitter search "budget sheet" --limit 5',
     'PATH="$HOME/.local/bin:$PATH" agent-reach read https://www.etsy.com/x',
-    '"C:/Users/me/.local/bin/agent-reach.exe" web search "etsy bestsellers"',
+    '"C:/Users/me/.local/bin/agent-reach.exe" web search "site:etsy.com bestsellers"',
+    "agent-reach read https://etsy.me/abc",
+    'agent-reach web search "planner site: etsy.com"',
+    "agent-reach read https://www.etsy.co.uk/listing/1",
+    "agent-reach read https://i.etsystatic.com/x.jpg",
     'cd x && agent-reach login twitter',
 ])
 def test_blocked(cmd):
@@ -35,6 +39,8 @@ def test_blocked(cmd):
     'agent-reach twitter search "budget sheet" --backend public-web',
     'agent-reach web search "free budget template"',
     "python -m src.signals --phrase x",
+    'agent-reach youtube search "small business expense tracker for etsy sellers" --limit 10',
+    'agent-reach reddit search "etsy seller bookkeeping" --limit 10 --backend public-web',
     "git status",
     # text that only mentions both words (edits, commits) is not an agent-reach call
     "git commit -m 'Agent-Reach never touches Etsy'",

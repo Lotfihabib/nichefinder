@@ -1,7 +1,8 @@
 """PreToolUse guard: keeps Agent-Reach on public routes and away from Etsy.
 
 Blocks any shell command that runs `agent-reach` and
-  - mentions Etsy (etsy.com, etsy search, ...): Etsy data comes only from the official API
+  - points at Etsy's site (etsy.com / etsy.me URLs, site:etsy...): Etsy data comes only from
+    the official API. The bare word is allowed, e.g. "expense tracker for etsy sellers".
   - logs in, adds channels, or drives the managed browser (login / add / browser / --backend opencli)
   - uses a browser-only channel (instagram, xiaohongshu, linkedin, boss, xueqiu)
   - searches/reads twitter, facebook or reddit without `--backend public-web`
@@ -12,6 +13,9 @@ import json
 import re
 import sys
 
+# Etsy's site and short links. The bare word is allowed (user decision 2026-11-01),
+# e.g. a YouTube search for "expense tracker for etsy sellers".
+ETSY_SITE = re.compile(r"etsy\s*\.\s*(com|me)\b|etsystatic|site:\s*\S*etsy|\betsy\.[a-z]{2,3}(\.[a-z]{2})?/")
 BROWSER_ONLY = ("instagram", "xiaohongshu", "linkedin", "boss", "xueqiu")
 PUBLIC_ONLY = ("twitter", "facebook", "reddit")
 
@@ -32,7 +36,7 @@ def _segment_reason(seg: str) -> str | None:
     if not INVOKE.match(seg):
         return None
     low = re.sub(r"""^(?:\w+=\S*\s+)*["']?(?:\S*[\\/])?agent-reach(?:\.exe)?["']?""", "agent-reach", seg.lower())
-    if "etsy" in low:
+    if ETSY_SITE.search(low):
         return "Agent-Reach must never touch Etsy. Etsy data comes only from the official API (src/etsy_client.py)."
     if re.search(r"agent-reach\s+(login|logout|add|browser)\b", low) or "--backend opencli" in low:
         return "Agent-Reach browser/login features are off for this project: public routes only."

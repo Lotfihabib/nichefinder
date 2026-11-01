@@ -93,8 +93,14 @@ def run_query(runner, q: dict, phrase: str, cfg: dict) -> dict:
              "query": q["query"].format(phrase=phrase), "at": at, "ok": False,
              "backend": None, "error": None, "items": [], "dropped_etsy_urls": 0}
     try:
-        out = runner(build_args(q, phrase), s["timeout_seconds"])
-        d = json.loads(out)
+        args = build_args(q, phrase)
+        d = json.loads(runner(args, s["timeout_seconds"]))
+        err = d.get("error") or {}
+        if not d.get("ok") and ("temporarily paused" in str(err.get("message")) or err.get("code") == "RATE_LIMITED"):
+            # Agent-Reach pauses a backend for ~120 s after an upstream error: wait it out once.
+            time.sleep(min(float(err.get("retry_after_seconds") or 125) + 5, s.get("max_pause_wait", 150)))
+            d = json.loads(runner(args, s["timeout_seconds"]))
+            block["retried"] = True
     except PermissionError as e:
         block["error"] = f"refused: {e}"
         return block
@@ -156,6 +162,30 @@ def subprocess_runner(args: list[str], timeout: float) -> str:
     return r.stdout
 
 
+def retry_failed(cfg: dict, runner=None) -> int:
+    runner = runner or subprocess_runner
+    queries = {(q["channel"], q["action"]): q for q in cfg["signals"]["queries"]}
+    fixed = still = 0
+    for f in sorted(SIGNALS.glob("*.json")):
+        sig = json.loads(f.read_text(encoding="utf-8"))
+        changed = False
+        for n, b in enumerate(sig["queries"]):
+            q = queries.get((b["channel"], b["action"]))
+            if b["ok"] or not q or b["channel"] == "twitter" or (b["error"] or "").startswith("refused"):
+                continue
+            time.sleep(cfg["signals"]["pause_seconds"])
+            nb = run_query(runner, q, sig["phrase"], cfg)
+            sig["queries"][n] = nb
+            changed = True
+            fixed += nb["ok"]
+            still += not nb["ok"]
+        if changed:
+            sig["summary"] = summarise(sig["queries"])
+            f.write_text(json.dumps(sig, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"retried: {fixed} now ok, {still} still failing")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     from .collect import read_phrases
     ap = argparse.ArgumentParser()
@@ -163,8 +193,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--phrase")
     ap.add_argument("--max-phrases", type=int)
     ap.add_argument("--include-rejected", action="store_true")
+    ap.add_argument("--retry-failed", action="store_true",
+                    help="re-run only failed queries in existing signal files (refusals and twitter are not retried)")
     a = ap.parse_args(argv)
     cfg = load_config()
+    if a.retry_failed:
+        return retry_failed(cfg)
     rows = [{"phrase": a.phrase}] if a.phrase else read_phrases(Path(a.phrases))
     scores = DATA / "scores.json"
     if not a.phrase and not a.include_rejected and scores.exists():
