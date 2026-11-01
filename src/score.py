@@ -304,6 +304,8 @@ def redteam_packet(result: dict, judgment: dict) -> dict:
         "q3_claimed_flaws": [{k: f.get(k) for k in ("flaw", "type", "listing_ids", "quotes")}
                              for f in q3.get("flaws") or []],
         "q4_claim": {k: q4.get(k) for k in ("product_class", "recreation_prompt", "recreation_verdict")},
+        # free templates the judge found but did not score: evidence for the red team's free-template attack
+        "free_substitutes": q4.get("free_substitutes") or [],
         "product_to_build": (judgment.get("product") or {}).get("spec"),
     }
 

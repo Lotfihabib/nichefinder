@@ -11,7 +11,7 @@ If `data/signals/<slug>.json` exists, read it too. It holds off-Etsy context fro
 The evidence file has `listings[]`, each with `listing_id`, `title`, `tags`, `listing_type`, `price_usd`, `low_star_reviews[]` (`rating`, `text`), `reviews_scanned` and `review_total`. Metric values are under `.value`. `null` means unknown.
 
 ## Q4-only mode (no page capture yet)
-If the evidence file has `"listings": []` (no capture, so no Etsy data), **write only `q4`**. Omit `q3` and `product`. Judge the product a buyer of this phrase would be paying for, using the phrase, buyer, job and the signals file. Give FAIL only when the case is clear: the product type is static (coloring pages, wall art, basic printables), or the signals show free templates that fully do the job. Otherwise give BORDERLINE with `recreation_verdict: partial`, or PASS. Without Etsy listings, don't give PASS unless the product is plainly functional and the free results don't substitute for it. Q4 is re-judged once the capture exists.
+If the evidence file has `"listings": []` (no capture, so no Etsy data), **write only `q4`**. Omit `q3` and `product`. Judge the product a buyer of this phrase would be paying for, from the phrase, buyer and job. Apply the same two Q4 tests as below: product class and the AI recreation test. Give FAIL only when the case is clear: the product is static (coloring pages, wall art, basic printables), or one free-AI prompt would clearly produce a usable substitute. When unsure, give BORDERLINE (`partial`). Free templates found in the signals do **not** decide Q4; record them in `free_substitutes` (see step 3). Q4 is re-judged once the capture exists.
 
 ## Q3 — Beatable: is there a concrete, fixable flaw?
 - **PASS:** at least one specific, fixable flaw backed by evidence, citing top-20 `listing_id`s. Evidence is either:
@@ -26,8 +26,8 @@ If the evidence file has `"listings": []` (no capture, so no Etsy data), **write
 ## Q4 — AI-proof: could the buyer make it with a free AI tool in 5 minutes?
 1. Classify the top listings' product: `functional` (working formulas or logic, a multi-part system, domain-accurate content, a bundle with instructions) or `static` (image or text only: clip art, simple wall art, coloring pages, basic printables, quotes).
 2. **Recreation test:** write the single prompt the buyer would type into a free AI tool (free ChatGPT, Gemini, Canva AI) to get a substitute for the top listing. Honestly judge whether its output would be a usable substitute: `succeeds`, `partial` or `fails`. Be honest. Free AI tools already make decent static printables and simple spreadsheets. Your job is to protect the user from building something buyers can get for free.
-3. **Free substitutes:** check the signals file's `free_alternatives` web results and any free templates shared on Reddit. If a free template already does what the top listing does for this buyer, the buyer doesn't need to pay. Treat that like a recreation `succeeds`, or `partial` if it only covers part of the job, and name the URLs in `reasoning`.
-- PASS = functional **and** `fails`. BORDERLINE = `partial`. FAIL = static, or `succeeds`.
+3. **Free substitutes (record, don't score):** list free templates that cover the same job, from the signals file's `free_alternatives` web results and free templates shared on Reddit, in `free_substitutes` as `[{"url", "covers": "full|part", "note"}]`. They do **not** change the Q4 verdict. Free templates exist in most niches while buyers still pay on Etsy, so whether they kill a niche is the red team's call once demand is known.
+- The verdict comes only from steps 1–2: PASS = functional **and** `fails`. BORDERLINE = `partial`. FAIL = static, or `succeeds`.
 
 ## Product (only if Q3 and Q4 are both PASS or BORDERLINE)
 - `flaw_to_fix`: one sentence naming the flaw and the listing IDs.
@@ -44,7 +44,8 @@ If the evidence file has `"listings": []` (no capture, so no Etsy data), **write
                     "listing_ids": [123], "quotes": ["verbatim, under 15 words"], "signal_urls": [], "fix": "..."}],
          "notes": "..."},
   "q4": {"verdict": "PASS|BORDERLINE|FAIL", "product_class": "functional|static",
-         "recreation_prompt": "...", "recreation_verdict": "succeeds|partial|fails", "reasoning": "..."},
+         "recreation_prompt": "...", "recreation_verdict": "succeeds|partial|fails", "reasoning": "...",
+         "free_substitutes": [{"url": "...", "covers": "full|part", "note": "..."}]},
   "product": {"flaw_to_fix": "...", "spec": "...", "target_price_usd": 0, "variations": ["..."]}
 }
 ```
